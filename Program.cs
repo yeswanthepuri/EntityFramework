@@ -1,6 +1,5 @@
 ﻿using System;
 using EntityModule.Model;
-using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,15 +9,22 @@ namespace EntityModule
     {
         static void Main(string[] args)
         {
-            using (var context = new SchoolContext())
-            {
-                var grade = context.Grades.
-                Where(x => x.Grade == getName()).Include("Students").FirstOrDefault();
-                if (grade != null)
-                {
-                    Console.WriteLine($"{grade.GradeName}, {grade?.Students.FirstOrDefault().Name}");
-                }
-            }
+            // using (var context = new SchoolContext())
+            // {
+            //     // var grade = context.Grades.
+            //     // Where(x => x.Grade == getName()).Include("Students").FirstOrDefault();
+            //     var 
+            //     if (grade != null)
+            //     {
+            //         Console.WriteLine($"{grade.GradeName}, {grade?.Students.FirstOrDefault().Name}");
+            //     }
+            // }
+            var context = new SchoolContext();
+            var studentWithGrade = context.Grades.FromSqlRaw("Select * from Grades where Grade ={0}","A")
+                                    .Include(s => s.Students)
+                                    .FirstOrDefault();
+
+
             Console.ReadLine();
         }
 
