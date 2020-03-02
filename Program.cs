@@ -20,10 +20,22 @@ namespace EntityModule
             //     }
             // }
             var context = new SchoolContext();
-            var studentWithGrade = context.Grades.FromSqlRaw("Select * from Grades where Grade ={0}","A")
-                                    .Include(s => s.Students)
-                                    .FirstOrDefault();
+            //Eager Loading
+            // var studentWithGrade = context.Grades.FromSqlRaw("Select * from Grades where Grade ={0}","A")
+            //                         .Include(s => s.Students)
+            //                         .FirstOrDefault();
 
+            //Lazy Loading is not supported by EF core.
+            //Projection Query
+            var grade = context.Grades.
+            Where(x => x.Grade == getName()).Select(s =>
+                new
+                {
+                    grade = s,
+                    students =s.Students
+
+                }
+            ).FirstOrDefault();
 
             Console.ReadLine();
         }

@@ -9,7 +9,7 @@ namespace EntityModule.Model
         public int GradeId { get; set; }
         public string Grade { get; set; }
         public string GradeName { get; set; }
-        public List<Student> Students { get; set; }
+        public List<Student> Students {get;set;}
     }
 
 }
