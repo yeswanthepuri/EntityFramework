@@ -4,14 +4,16 @@ using EntityModule.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityModule.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20200302090431_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +58,8 @@ namespace EntityModule.Migrations
                 {
                     b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
